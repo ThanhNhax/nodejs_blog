@@ -1,19 +1,19 @@
-const { mutipleMongooseToPbject } = require('../../util/mongoose');
-const Course = require('../models/Course');
+const { mutipleMongooseToPbject } = require("../../util/mongoose");
+const Course = require("../models/Course");
 
 class SiteController {
     index(req, res, next) {
-        // nhận database bằn promise
+        // nhận database bằng promise
         Course.find({})
             .then((courses) => {
-                res.render('home', {
+                res.render("home", {
                     courses: mutipleMongooseToPbject(courses),
                 });
             })
             .catch(next);
     }
     search(req, res) {
-        res.render('search');
+        res.render("search");
     }
 }
 

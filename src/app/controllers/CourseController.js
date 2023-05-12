@@ -1,5 +1,5 @@
-const Course = require('../models/Course');
-const { mongooseToPbject } = require('../../util/mongoose');
+const Course = require("../models/Course");
+const { mongooseToPbject } = require("../../util/mongoose");
 
 class CourseController {
     //[GET]  courses/:slug
@@ -8,7 +8,17 @@ class CourseController {
             slug: req.params.slug,
         })
             .then((course) => {
-                res.render('courses/show', {
+                res.render("courses/show", {
+                    course: mongooseToPbject(course),
+                });
+            })
+            .catch(next);
+    }
+    // [Get] /courses/id/edit
+    edit(req, res, next) {
+        Course.findById(req.params.id)
+            .then((course) => {
+                res.render("courses/edit", {
                     course: mongooseToPbject(course),
                 });
             })
@@ -16,7 +26,7 @@ class CourseController {
     }
     //[GET]  courses/:create
     create(req, res, next) {
-        res.render('courses/create');
+        res.render("courses/create");
     } //[GET]  courses/:create
     store(req, res, next) {
         // xử lý dữ liệu tại đây
@@ -29,6 +39,12 @@ class CourseController {
         course.save();
         //     .then(() => res.redirect('/'))
         //     .catch((err) => {});
+    }
+    // [PUT] /course/id
+    update(req, res, next) {
+        Course.updateOne({ _id: req.params.id }, req.body)
+            .then(res.redirect("/me/stored/courses"))
+            .catch(next);
     }
 }
 

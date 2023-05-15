@@ -90,13 +90,14 @@
         let courseItemCheckbox = $('input[name="coursesId[]"]');
         let checkAllSubmitBtn = $('.btn-checkAllSubmitBtn')
         $('#exampleModal').on('show.bs.modal', function (e) {
-            const btn =
-                $(e.relatedTarget); courseId = btn.data('id'); const btnDelete =
-                    document.querySelector('#btn-delete-course'); btnDelete.onclick = function
-                        () {
-                        deleteForm.action = '/courses/' + courseId + "?_method=DELETE";
-                        deleteForm.submit();
-                    }
+            const btn = $(e.relatedTarget);
+            courseId = btn.data('id');
+            console.log(courseId);
+            const btnDelete = document.querySelector('#btn-delete-course');
+            btnDelete.onclick = function () {
+                deleteForm.action = '/courses/' + courseId + "?_method=DELETE";
+                deleteForm.submit();
+            }
         });
 
         checkBox_all.change(function () {

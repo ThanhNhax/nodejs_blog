@@ -69,6 +69,16 @@ class CourseController {
         switch (req.body.action) {
             case "delete":
                 Course.delete({ _id: { $in: req.body.coursesId } })
+                    .then(res.redirect("/me/trash/courses"))
+                    .catch(next);
+                break;
+            case "deleteForce":
+                Course.deleteOne({ _id: { $in: req.body.courseId } })
+                    .then(res.redirect("/me/trash/courses"))
+                    .catch(next);
+                break;
+            case "restore":
+                Course.restore({ _id: req.body.courseId }, req.body)
                     .then(res.redirect("/me/stored/courses"))
                     .catch(next);
                 break;
